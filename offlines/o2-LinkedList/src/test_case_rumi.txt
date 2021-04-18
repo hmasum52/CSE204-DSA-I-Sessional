@@ -1,0 +1,38 @@
+4
+4 3 2 1
+1 P
+4 P
+4 R
+4 R
+7 P
+7 M
+7 P
+8 I 2
+8 R
+8 I 3
+8 R
+8 I 4
+8 P
+8 R
+10 P
+1610 P
+1611 M
+1611 R
+1611 M
+1611 P
+1611 F
+
+Answer:
+
+Player 1 is holding the pillow at t=1
+Player 1 is holding the pillow at t=4
+Player 2 is holding the pillow at t=7
+Player 2 has been eliminated at t=7
+Player 3 is holding the pillow at t=7
+Player 3 is holding the pillow at t=8
+Player 7 is holding the pillow at t=10
+Player 7 is holding the pillow at t=1610
+Player 7 has been eliminated at t=1611
+Player 5 has been eliminated at t=1611
+Player 3 is holding the pillow at t=1611
+Game Over: Player 3 is holding the pillow at t=1611, pillow passing sequence = Player 3, 6, 4, 1
