@@ -1,2 +1,0 @@
-Enter number of intergers:  1 for Ascending , 2 for desending, 3 for random
-Enter order mentioned above: 
