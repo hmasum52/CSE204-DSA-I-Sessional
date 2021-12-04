@@ -1,0 +1,167 @@
+#Test_1:
+14 12 7 5
+0 1
+2 0
+0 3
+1 2
+2 3
+5 4
+6 5
+8 5
+5 7
+11 12
+13 11
+12 13
+0 1
+3 2
+2 3
+12 12
+5 9
+6 7
+9 3
+0 0
+2 1
+5 2
+9 3
+11 4
+
+Output_1:
+Mission Successful
+37 out of 37 pieces are collected
+0 collected 6 pieces
+1 collected 0 pieces
+2 collected 16 pieces
+3 collected 3 pieces
+4 collected 12 pieces
+
+#Test_2:
+14 12 7 5
+0 1
+2 0
+0 3
+1 2
+2 3
+5 4
+6 5
+8 5
+5 7
+11 12
+13 11
+12 13
+0 1
+3 2
+2 3
+12 12
+5 9
+6 7
+9 3
+0 0
+2 1
+5 2
+7 3
+11 4
+
+Output_2:
+Mission Impossible
+34 out of 37 pieces are collected
+0 collected 6 pieces
+1 collected 0 pieces
+2 collected 16 pieces
+3 collected 0 pieces
+4 collected 12 pieces
+
+#Test_3:
+5 10 3 7
+0 1
+0 2
+0 3
+0 4
+1 2
+1 3
+1 4
+2 3
+2 4
+3 4
+4 5
+0 7
+2 3
+2 1
+2 4
+3 0
+4 6
+4 3
+0 5
+0 2
+
+Output_3:
+15 out of 15 pieces are collected
+0 collected 15 pieces
+1 collected 0 pieces
+2 collected 0 pieces
+3 collected 0 pieces
+4 collected 0 pieces
+5 collected 0 pieces
+6 collected 0 pieces
+
+#Test_4:
+8 4 4 4
+0 4
+2 1
+3 5
+6 7
+0 3
+3 2
+1 1
+6 5
+4 0
+1 2
+1 1
+7 3
+
+Output_4:
+9 out of 11 pieces are collected
+0 collected 3 pieces
+1 collected 1 pieces
+2 collected 0 pieces
+3 collected 5 pieces
+
+Test_5:
+8 5 3 4
+0 1
+0 2
+1 2
+2 3
+4 5
+3 7
+6 3
+5 1
+0 0
+3 1
+6 2
+7 3
+
+Output_5:
+10 out of 11 pieces are collected
+0 collected 7 pieces
+1 collected 0 pieces
+2 collected 3 pieces
+3 collected 0 pieces
+
+Test_6: [Slightly out of constraints (Roads=0)]
+5 0 3 5
+0 1
+1 7
+2 2
+0 0
+0 3
+2 1
+3 2
+3 4
+
+Output_5:
+3 out of 10 pieces are collected
+0 collected 1 pieces
+1 collected 2 pieces
+2 collected 0 pieces
+3 collected 0 pieces
+4 collected 0 pieces
