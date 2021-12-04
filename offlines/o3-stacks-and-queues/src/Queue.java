@@ -19,7 +19,9 @@ public class Queue<T> {
     public void equeue(T value) {
         length++;
         Node node = new Node(value);
-        if (front == null) {
+
+        // if the queue is empty
+        if (isEmpty()) {
             front = node;
             back = node;
             return;
@@ -36,7 +38,7 @@ public class Queue<T> {
      * @return
      */
     public T dequeue() {
-        if (back != null) {
+        if (!isEmpty()) {
             length--;
             // get the value of current front
             T value = front.value;
@@ -48,7 +50,7 @@ public class Queue<T> {
     }
     
     /**
-     * 
+     * @return true if the queue is empty
      */
     public boolean isEmpty() {
         return front == null;
@@ -62,6 +64,10 @@ public class Queue<T> {
         return front.value;
     }
     
+    /**
+     * 
+     * @return the value at the back
+     */
     public T back() {
         return back.value;
     }

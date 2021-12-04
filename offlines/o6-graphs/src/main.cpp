@@ -233,7 +233,7 @@ public:
         else
             cout << "Mission Impossible" << endl;
 
-        cout << total << " out of " << this->totalPieces << " are collected" << endl;
+        cout << total << " out of " << this->totalPieces << " pieces are collected" << endl;
 
         // STEP-5: print person id and number of collected pieces
         for (int i = 0; i < ans.size(); i++)
@@ -268,7 +268,7 @@ a.exe<tc1.txt
 int main(int argc, char const *argv[])
 {
 
-    //freopen("in.txt", "r", stdin);
+   // freopen("in.txt", "r", stdin);
     freopen("out.txt", "w", stdout); //output to a file
 
     // c = number of cities

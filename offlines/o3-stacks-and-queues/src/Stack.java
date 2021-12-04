@@ -18,7 +18,7 @@ public class Stack<T> {
         length++;
 
         //if the stack is empty
-        if (top == null) {
+        if (isEmpty()) {
             top = node;
             return;
         }
@@ -29,8 +29,14 @@ public class Stack<T> {
         top = node;
     }
 
+    /**
+     * 
+     * @return the top element of the stack
+     * and remove it from the stack
+     * and return null if the stack is empty
+     */
     public T pop() {
-        if (top != null) {
+        if (!isEmpty()) {
             length--;
 
             //store the top value to return

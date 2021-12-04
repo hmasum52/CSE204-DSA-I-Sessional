@@ -2,9 +2,17 @@
 
 public class Array {
     public static final String DEBUG = "Array->";
+
+    // initialize array if not defined
     public static final int BASE_SIZE = 2;
+
+    // maxiumum size of array
     public static final int MAX_SIZE = 1 << 31 - 1; //2^31 - 1;
+
+    // data will be stored in this array
     private String[] data;
+
+    // length of array
     private int length;
 
     /**
@@ -22,10 +30,14 @@ public class Array {
      */
     Array(int n) {
         int size = BASE_SIZE;
+
+        // grow array if necessary
         while (BASE_SIZE < n)
             size = BASE_SIZE << 1; //double the size
 
+        // allocate array to store data
         data = new String[size];
+        // init the length of the array
         length = n;
     }
 
@@ -247,22 +259,22 @@ public class Array {
     public void merge(String[] ar1, String[] ar2) {
 
         int size = BASE_SIZE;
-        length = ar1.length + ar2.length;
-        while (size < length) {
+        this.length = ar1.length + ar2.length;
+
+        // resize the array if the length is greater than the base size
+        while (size < this.length) {
             size = size << 1;
             // System.out.println(DEBUG + "merge(): size: "+ size);
         }
         //System.out.println(DEBUG + "merge(): new array length "+ size);
+        // allocate memory
         this.data = new String[size];
 
         for (int i = 0, j = 0, k = 0; k < length; k++) {
-            if (i == ar1.length && j == ar2.length)
-                return;
-
             if (i == ar1.length) //ar1 is inserted already
-                data[k] = ar2[j++];
-            else if (j == ar2.length) //ar2 is alredy inserted
-                data[k] = ar1[i++];
+                data[k] = ar2[j++]; // then insert ar2
+            else if (j == ar2.length) //ar2 is already inserted
+                data[k] = ar1[i++]; // then insert ar1
 
             //else compare elements
             else if (ar1[i].compareTo(ar2[j]) < 0)

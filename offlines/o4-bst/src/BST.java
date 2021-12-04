@@ -1,6 +1,7 @@
 /**
  * binary search tree of integer
  * 
+ * height of the tree h = log2(n+1)
  * 
  * It is assumed integers all the items in the tree are distinct, i.e. there is no repetition
  */
@@ -16,6 +17,14 @@ public class BST{
     }
 
     private Node root;
+
+    public boolean isEmpty() {
+        return root == null;
+    }
+
+    public boolean isLeaf(Node node) {
+        return node.left == null && node.right == null;
+    }
     
     /**
      * 
@@ -28,7 +37,7 @@ public class BST{
     public boolean insertItem(int value) {
         //tree is empty
         //so create a root node
-        if (root == null) {
+        if (isEmpty()) {
             root = new Node(value);
             return true;
         }
@@ -41,15 +50,18 @@ public class BST{
      * 
      * helper recursive method to insert a node
      * 
-     * @param root  of a sub-tree
+     * @param root is the parent of a sub-tree
      * @param value is the value to be inserted.
+     * 
+     * @return true if the value is inserted successfully and false if the value
+     *        already exist
      */
     private boolean insertItem(Node root, int value) {
         //expected unique vlaues
         //still we check and ingore the value
         //if it already exist
         if (root.value == value) {
-            return false;
+            return false; //already exist
         }
         
         //check is the value is less then parent node
@@ -104,7 +116,7 @@ public class BST{
      */
     private boolean searchItem(Node root, int value) {
         //tree is empty or node is a leaf
-        if (root == null)
+        if (isEmpty())
             return false;
 
         //check is the value is matched with this node
@@ -130,9 +142,9 @@ public class BST{
      * The in-order successor of a node is the node that is processed next (not
      * visited!) in the in-order traversal of the binary search tree.
      * 
-     * In other word, in-order successor of a node is the node whose value is
-     * minimum among all nodes that are larger than the node. It is the next node in
-     * ascending sorter order of the items in the tree.
+     * In other word, in-order successor of a node is the node
+     * whose value is minimum among all nodes that are larger than the node.
+     * It is the next node in ascending sorted order of the items in the tree.
      * 
      */
     public int getInOrderSuccessor(int value) {
@@ -156,18 +168,19 @@ public class BST{
 
         //check is value is found ======================================
         if (root.value == value) {
-            //set the value-node as successor though it is not
-            //we will return this if the successor is not found in right sub-tree
-            //and this will indicate the ancestors that the value is found
-            //but the successor is not found yet.
+            // set the value-node as successor though it is not
+            // we will return this if the successor is not found in right sub-tree
+            // and this will indicate the ancestors that 
+            // the value is found but the successor is not found yet.
             successor = root;
 
             //check is right sub-tree exist.
             //because the successor is the leftmost node in right sub-tree.
+            // CASE-1: right sub-tree exist
             if (root.right != null) {
 
                 // track the successor
-                //set the root of right sub-tree as successor.
+                // set the root of right sub-tree as successor.
                 successor = root.right;
 
                 // successor will be leftmost child of this tree
@@ -191,21 +204,22 @@ public class BST{
             //call for successor in left sub-tree
             successor = findInOrderSuccessor(root.left, value);
 
-            //check if the value is found but not the successor
+            // check if the value is found but not the successor
             if (successor.value == value) {
                 // successor is not found in left sub-tree
                 // but the value is found
-                // and current node is a ansestor is greater then the value
+                // and current node is an ansestor is greater then the value
                 // so it is the successor
                 successor = root;
             }
                 
-        } else { //check if the value may exist is right sub-tree ==============
+        } else { 
+            //check if the value may exist is right sub-tree ==============
             successor = findInOrderSuccessor(root.right, value);
         }
         
         // value was found but no successor was found.
-        // an example of node like this is the last node in in-order traversal.
+        // an example of node like this is the last node in in-order traversal.(rightmost node)
         if (root == this.root && successor.value == value)
             successor = null;
 
@@ -274,7 +288,7 @@ public class BST{
         // value is not found yet at this point===============
 
         // check for the value in the left sub-tree ============================
-        if (value < root.value) {
+        else if (value < root.value) {
             // call for successor in left sub-tree
             predecessor = findInOrderPredecessor(root.left, value);
         }
@@ -435,6 +449,17 @@ public class BST{
         }
         return maxNode.value;
     }
+
+    public Node getMax(Node root){
+        if(root == null)
+            return null;
+
+        // rightmost node is the max node
+        while(root.right != null)
+            root = root.right;
+
+        return root;
+    }
     
     /**
      * This function finds and returns the minimum item of the binary search tree.
@@ -453,6 +478,17 @@ public class BST{
             minNode = minNode.left;
         }
         return minNode.value;
+    }
+
+    public Node getMin(Node root){
+        if(root == null)
+            return null;
+
+        // leftmost node is the min node
+        while(root.left != null)
+            root = root.left;
+            
+        return root;
     }
     
     /**

@@ -1,0 +1,4 @@
+g++ -Wl,--stack,16777216 -o file.exe file.cpp
+g++ -Wl,--stack,16777216 main.cpp
+g++ -Wl,--stack,4194304 -o main.exe main.cpp 
+

@@ -35,13 +35,13 @@ public class DCLinkedList<T> {
     public void append(T value) {
         ListNode newNode = new ListNode(value);
 
-        // if there was not element
+        // if the list is empty
         if (head == null) {
             head = newNode;
             head.prev = newNode;
             head.next = newNode;
-            tail = head;
-            length++;
+            tail = head; // head and tail are same
+            length++; // increase the length by 1
             
             return;
         }
@@ -68,6 +68,8 @@ public class DCLinkedList<T> {
 
     /**
      * search a node in O(n) time
+     * 
+     * make sure you override equals method in {@link T}
      * 
      * @param object to be searched
      * @return resturn a ListNode is found else return null
@@ -184,9 +186,12 @@ public class DCLinkedList<T> {
         return length;
     }
 
+    public static final int LEFT_TO_RIGHT = 1; // clockwise
+    public static final int RIGHT_TO_LEFT = -1; // anti-clockwise
+
     
     public T next(T object, int direction) {
-        if (direction == 1) {
+        if (direction == LEFT_TO_RIGHT) {
             ListNode temp = getListNode(object);
             return temp.next.value;
         } else {

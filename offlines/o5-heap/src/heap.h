@@ -3,12 +3,13 @@ using namespace std;
 /**
  * heap class items start from index 0
  * so for node i 
- * parent: floor( (i-1)/2 )
- * left child : 2*i + 1
- * right child: 2*i + 2
+ * 
+ * parent: floor( (i-1)/2 ) || floor(i/2) for 1-based indexing
+ * left child : 2*i + 1 || 2*i for 1-based indexing
+ * right child: 2*i + 2 || 2*i + 1 for 1-based indexing
  * 
  * if n is the total node
- * leaf node: floor(n/2) to n-1
+ * leaf node: floor(n/2) to n-1 || (n/2 + 1) to n for 1-based indexing
  * non-leaf node: floor(n/2)-1 to 0
  * 
  * in case a node is empty, we use INT32_MIN(-2147483648) as an invalid number
@@ -35,11 +36,12 @@ private:
      * to hepify the sub-tree.
      * h = log(n), where n is number of items or node
      * so it has O(log(n)) complexity.
+     * 
+     * @param root is the root index of the sub-tree
      */
-    void max_hepify(int root)
-    {
+    void max_hepify(int root){
         //index out of range
-        if (root < 0 || root >= heapSize)
+        if (root < 0 || root >= heapSize) // base case
             return;
 
         // index of the binary tree items start from index 0
@@ -50,29 +52,27 @@ private:
         int maxValueIdx = root;
 
         //check if left child is greater than the root
-        if (left < length && items[left] > items[root])
-        {
+        if (left < length && items[left] > items[root]){
             maxValueIdx = left;
         }
 
         // check if right child is greater than the root
-        if (right < length && items[right] > items[maxValueIdx])
-        {
+        if (right < length && items[right] > items[maxValueIdx]){
             maxValueIdx = right;
         }
 
         // if root is less than from one of it's child then
         // we have to hepify the child node sub-tree again.
-        if (maxValueIdx != root)
-        {
+        if (maxValueIdx != root){
             this->swap(items[maxValueIdx], items[root]);
             max_hepify(maxValueIdx);
         }
     }
 
     // swap two elements
-    void swap(int &a, int &b)
-    {
+    void swap(int &a, int &b){
+        if(a == b)
+            return;
         a ^= b;
         b ^= a;
         a ^= b;
@@ -83,8 +83,7 @@ public:
      * only constructor to create a heap class with predefined size
      * @param size is the maximum possible size of the heap
      */
-    Heap(int size)
-    {
+    Heap(int size){
         this->heapSize = size;
         items = new int[size];
         this->length = 0;
@@ -98,8 +97,7 @@ public:
     /**
      * copy constructor of heap class
      */
-    Heap(const Heap &h)
-    {
+    Heap(const Heap &h){
         heapSize = h.heapSize;
         length = h.length;
         items = new int[heapSize];
@@ -109,8 +107,7 @@ public:
         }
     }
 
-    ~Heap()
-    {
+    ~Heap(){
         delete[] items;
     }
 
@@ -123,10 +120,8 @@ public:
      * which is equal to hight of the complete binary tree.
      * so insertion has complexity O(log(n))
      */
-    void insert(int value)
-    {
-        if (length == heapSize)
-        {
+    void insert(int value){
+        if (length == heapSize){
             cout << "Error inserting! Overflow!! You have reached max heap size " + heapSize << endl;
             return;
         }
@@ -143,8 +138,7 @@ public:
         // as heap is started from index 0
         // root of child is floor((i-1)/2)
         int root = (child - 1) / 2;
-        while (child > 0 && items[child] > items[root])
-        {
+        while (child > 0 && items[child] > items[root]){
             // cout << items[child] << " at index " << child << " is greater than root " << items[root] << " at index " << root << endl;
             this->swap(items[child], items[root]);
             child = root;
@@ -161,8 +155,7 @@ public:
     /**
      * return initialy allocated size of the heap.
      */
-    int size()
-    {
+    int size(){
         return this->heapSize;
     }
 
@@ -170,8 +163,7 @@ public:
      *  return the max in O(1)
      *  return INT32_MIN if Heap is empty
      */
-    int getMax()
-    {
+    int getMax(){
         return items[0];
     }
 
@@ -181,10 +173,8 @@ public:
      * 
      * complexity: O(log(n)) as it calls the max_hepify which has complexity O(log(n))
      */
-    void deleteKey()
-    {
-        if (length == 0)
-        {
+    void deleteKey(){
+        if (length == 0){
             cout << "Error deleting key. Heap is empty" << endl;
             return;
         }
@@ -203,8 +193,7 @@ public:
         items[length] = INT32_MIN;
     }
 
-    void debugPrint()
-    {
+    void debugPrint(){
         for (int i = 0; i < heapSize; i++)
         {
             cout << items[i] << " ";
@@ -213,21 +202,18 @@ public:
     }
 };
 
-void heapsort(vector<int> &v)
-{
+void heapsort(vector<int> &v){
     //BUILD HEAP ==================================
     int n = v.size();
     Heap h(n);
     // every insert take O(log(n))
     // so complexity : O(nlog(n))
-    for (auto i : v)
-    {
+    for (auto i : v){
         h.insert(i);
     }
 
     // EXTRACT VALUES FROM HEAP ==================
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++){
         v[i] = h.getMax();
         h.deleteKey();
     }
@@ -237,15 +223,13 @@ void heapsort(vector<int> &v)
 
 /// EXTRA===================================================================================
 // HEAP SORT IN ASCENDING ORDER WITHOUT USING HEAP CLASS.===================================
-void swap(int &a, int &b)
-{
+void swap(int &a, int &b){
     a ^= b;
     b ^= a;
     a ^= b;
 }
 
-void max_hepify(vector<int> &numbers, int root, int end)
-{
+void max_hepify(vector<int> &numbers, int root, int end){
     //index out of range
     if (root < 0 || root > end)
         return;
@@ -256,21 +240,18 @@ void max_hepify(vector<int> &numbers, int root, int end)
     int max = root;
 
     //check if left child is greater than the root
-    if (left <= end && numbers[left] > numbers[root])
-    {
+    if (left <= end && numbers[left] > numbers[root]){
         max = left;
     }
 
     // check if right child is greater than the root
-    if (right <= end && numbers[right] > numbers[max])
-    {
+    if (right <= end && numbers[right] > numbers[max]){
         max = right;
     }
 
     //if root is swaped with one of it's child then
     // we have to hepify the child node again.
-    if (max != root)
-    {
+    if (max != root){
         swap(numbers[max], numbers[root]);
         max_hepify(numbers, max, end);
     }
@@ -282,14 +263,12 @@ void max_hepify(vector<int> &numbers, int root, int end)
         cout << i << " ";
     cout << endl;
 } */
-void heapsortAsc(vector<int> &numbers)
-{
+void heapsortAsc(vector<int> &numbers){
     // BUILD HEAP ===================================
     int n = numbers.size();
     // max-hepfiy the non-laef nodes
     // non-leaf node starts from floor(n)
-    for (int i = n / 2 - 1; i >= 0; i--)
-    {
+    for (int i = n / 2 - 1; i >= 0; i--){
         max_hepify(numbers, i, n - 1);
     }
 
@@ -298,8 +277,7 @@ void heapsortAsc(vector<int> &numbers)
 
     // EXTRACT THE MAX ==============================
     int end = n - 1;
-    while (end > 0)
-    {
+    while (end > 0){
         swap(numbers[0], numbers[end]);
         //debugVector(numbers);
         max_hepify(numbers, 0, --end);
